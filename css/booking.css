@@ -379,3 +379,29 @@
 
 /* Confirm Button */
 .confirm-btn { min-width: 200px; justify-content: center; }
+
+/* -- Responsive Booking ---------------------------------- */
+@media (max-width: 992px) {
+  .sport-selector, .courts-visual, .addons-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .booking-summary { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+  .booking-panel { padding: 24px 16px; }
+  .booking-steps { gap: 16px; }
+  .step-connector { display: none; }
+  .date-time-grid { grid-template-columns: 1fr; gap: 24px; }
+  .time-slots { grid-template-columns: repeat(3, 1fr); }
+  .sport-opt-card { padding: 16px 8px; }
+  .sport-opt-card i { font-size: 1.4rem; }
+  .court-block { padding: 12px 8px; }
+  .court-label { font-size: .8rem; }
+}
+@media (max-width: 480px) {
+  .time-slots { grid-template-columns: repeat(2, 1fr); }
+  .sport-selector, .courts-visual, .addons-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+}
