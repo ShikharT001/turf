@@ -1,0 +1,161 @@
+/* ═══════════════════════════════════════════
+   SCROLL & ENTRY ANIMATIONS
+═══════════════════════════════════════════ */
+
+/* Reveal classes — added by IntersectionObserver */
+.reveal-up,
+.reveal-left,
+.reveal-right {
+  opacity: 0;
+  transition: opacity .7s ease, transform .7s cubic-bezier(.4,0,.2,1);
+}
+.reveal-up    { transform: translateY(40px); }
+.reveal-left  { transform: translateX(-40px); }
+.reveal-right { transform: translateX(40px); }
+
+.reveal-up.visible,
+.reveal-left.visible,
+.reveal-right.visible {
+  opacity: 1;
+  transform: translate(0);
+}
+
+/* Stagger delays for children */
+.reveal-stagger > *:nth-child(1) { transition-delay: .05s; }
+.reveal-stagger > *:nth-child(2) { transition-delay: .1s; }
+.reveal-stagger > *:nth-child(3) { transition-delay: .15s; }
+.reveal-stagger > *:nth-child(4) { transition-delay: .2s; }
+.reveal-stagger > *:nth-child(5) { transition-delay: .25s; }
+.reveal-stagger > *:nth-child(6) { transition-delay: .3s; }
+.reveal-stagger > *:nth-child(7) { transition-delay: .35s; }
+
+/* Parallax wrappers */
+.parallax-wrap { overflow: hidden; }
+.parallax-el { will-change: transform; }
+
+/* Tilt animation for cards */
+@keyframes tiltIn {
+  from { opacity: 0; transform: perspective(1000px) rotateX(15deg) translateY(30px); }
+  to   { opacity: 1; transform: perspective(1000px) rotateX(0) translateY(0); }
+}
+.tilt-in { animation: tiltIn .8s cubic-bezier(.4,0,.2,1) both; }
+
+/* Number count-up animation trigger */
+.count-up { transition: color .3s; }
+
+/* Sport card hover tilt */
+.sport-card {
+  transition: transform .4s cubic-bezier(.4,0,.2,1), box-shadow .4s ease;
+  transform-style: preserve-3d;
+}
+
+/* Glitter / shimmer overlay for pricing card */
+.pricing-card.featured::after {
+  content: '';
+  position: absolute;
+  top: -100%;
+  left: -100%;
+  width: 300%;
+  height: 300%;
+  background: linear-gradient(
+    115deg,
+    transparent 40%,
+    rgba(255,255,255,.4) 50%,
+    transparent 60%
+  );
+  animation: shimmer 4s infinite;
+}
+@keyframes shimmer {
+  from { transform: translateX(-100%) translateY(-100%) rotate(30deg); }
+  to   { transform: translateX(100%) translateY(100%) rotate(30deg); }
+}
+
+/* Page-level transition overlay */
+.page-transition {
+  position: fixed;
+  inset: 0;
+  background: var(--gradient);
+  transform: translateY(100%);
+  z-index: 99997;
+  transition: transform .5s cubic-bezier(.76,0,.24,1);
+}
+.page-transition.entering { transform: translateY(0); }
+.page-transition.leaving  { transform: translateY(-100%); }
+
+/* Morphing blob background for hero */
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: .15;
+  animation: morphBlob 10s ease-in-out infinite alternate;
+}
+.blob-1 { width: 500px; height: 500px; background: var(--green-400); top: -100px; right: -100px; animation-delay: 0s; }
+.blob-2 { width: 300px; height: 300px; background: var(--lime-400); bottom: 50px; left: 30%; animation-delay: 3s; }
+.blob-3 { width: 200px; height: 200px; background: var(--green-500); top: 40%; left: -50px; animation-delay: 6s; }
+
+@keyframes morphBlob {
+  0%   { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; transform: scale(1) rotate(0deg); }
+  50%  { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; transform: scale(1.05) rotate(5deg); }
+  100% { border-radius: 40% 60% 50% 50% / 40% 50% 60% 50%; transform: scale(.95) rotate(-3deg); }
+}
+
+/* Particle dots */
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--green-400);
+  pointer-events: none;
+  animation: particleDrift linear infinite;
+  opacity: 0;
+}
+@keyframes particleDrift {
+  0%   { opacity: 0; transform: translateY(0) translateX(0) scale(1); }
+  10%  { opacity: .6; }
+  90%  { opacity: .3; }
+  100% { opacity: 0; transform: translateY(-200px) translateX(var(--drift)) scale(.5); }
+}
+
+/* Gradient border animation */
+@keyframes rotateBorder {
+  from { --angle: 0deg; }
+  to   { --angle: 360deg; }
+}
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+.gradient-border {
+  border: 2px solid transparent;
+  background: linear-gradient(white, white) padding-box,
+              conic-gradient(from var(--angle), #22c55e, #84cc16, #4ade80, #22c55e) border-box;
+  animation: rotateBorder 4s linear infinite;
+}
+
+/* Text gradient animation */
+.animated-gradient-text {
+  background: linear-gradient(270deg, #22c55e, #84cc16, #4ade80, #22c55e);
+  background-size: 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 4s ease infinite;
+}
+@keyframes gradientShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ── Sports card 3D tilt ────────────────────────────────── */
+.tilt-card { transform-style: preserve-3d; perspective: 1000px; }
+.tilt-card-inner { transform-style: preserve-3d; transition: transform .1s ease; }
+
+/* Glow effect on hover */
+.glow-on-hover {
+  transition: box-shadow .3s ease;
+}
+.glow-on-hover:hover {
+  box-shadow: 0 0 30px rgba(34,197,94,.3), var(--shadow-lg);
+}
